@@ -264,16 +264,16 @@ VMESS_UUID="ba0e3984-ccc9-48a3-8074-b2f507f41ce8"
 make_vmess_ws_uri(){
   local host="$1"
   local json=$(cat <<JSON
-{"v":"2","ps":"VMess-WS","add":"vpn.googleapis.com","port":"443","id":"${VMESS_UUID}","aid":"0","scy":"zero","net":"ws","type":"none","host":"${host}","path":"/tg-@nkka404","tls":"tls","sni":"vpn.googleapis.com","alpn":"http/1.1","fp":"randomized"}
+{"v":"2","ps":"VMess-WS","add":"youtube.com","port":"443","id":"${VMESS_UUID}","aid":"0","scy":"zero","net":"ws","type":"none","host":"${host}","path":"/tg-@l_1AR","tls":"tls","sni":"youtube.com","alpn":"http/1.1","fp":"randomized"}
 JSON
 )
   base64 <<<"$json" | tr -d '\n' | sed 's/^/vmess:\/\//'
 }
 
 case "$PROTO" in
-  trojan-ws)  URI="trojan://${TROJAN_PASS}@vpn.googleapis.com:443?path=%2F%40nkka404&security=tls&host=${CANONICAL_HOST}&type=ws#Trojan-WS" ;;
-  vless-ws)   URI="vless://${VLESS_UUID}@vpn.googleapis.com:443?path=%2F%40nkka404&security=tls&encryption=none&host=${CANONICAL_HOST}&type=ws#Vless-WS" ;;
-  vless-grpc) URI="vless://${VLESS_UUID_GRPC}@vpn.googleapis.com:443?mode=gun&security=tls&encryption=none&type=grpc&serviceName=vless-grpc-service&sni=${CANONICAL_HOST}#VLESS-gRPC" ;;
+  trojan-ws)  URI="trojan://${TROJAN_PASS}@youtube.com:443?path=%2F%40l_1AR&security=tls&host=${CANONICAL_HOST}&type=ws#Trojan-WS" ;;
+  vless-ws)   URI="vless://${VLESS_UUID}@youtube.com:443?path=%2F%40l_1AR&security=tls&encryption=none&host=${CANONICAL_HOST}&type=ws&sni=youtube.com#Vless-WS" ;;
+  vless-grpc) URI="vless://${VLESS_UUID_GRPC}@youtube.com:443?mode=gun&security=tls&encryption=none&type=grpc&serviceName=vless-grpc-service&sni=youtube.com#VLESS-gRPC" ;;
   vmess-ws)   URI="$(make_vmess_ws_uri "${CANONICAL_HOST}")" ;;
 esac
 
